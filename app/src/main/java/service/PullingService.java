@@ -2,6 +2,7 @@ package service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -26,6 +27,17 @@ public class PullingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.i(TAG, "Service onStartCommand");
+
+        Bundle extras = intent.getExtras();
+
+        if (extras == null) {
+            Log.i(TAG, "No params");
+        } else {
+            String token = (String) extras.get("token");
+            String session = (String) extras.get("session");
+            Log.i(TAG, "token: " + token);
+            Log.i(TAG, "session: " + session);
+        }
 
         //Criando uma thread
         new Thread(new Runnable() {

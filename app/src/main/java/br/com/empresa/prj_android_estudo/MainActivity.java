@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import service.PullingService;
 
@@ -12,6 +13,25 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG_LOG = "[MainActivity]";
 
     private int count = 0;
+
+    //stopService(new Intent(ActivityName.this, PullingService.class));
+
+
+    public void btn_parar_click(View view) {
+        Log.i(TAG_LOG, String.valueOf(count++) + " parar click");
+        stopService(new Intent(this, PullingService.class));
+    }
+
+    public void btn_iniciar_click(View view) {
+        Log.i(TAG_LOG, String.valueOf(count++) + " iniciar click");
+        Intent intent = new Intent(this, PullingService.class);
+        intent.putExtra("token","token123456789");
+        intent.putExtra("session","session123456789");
+
+        startService(intent);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent intent = new Intent(this, PullingService.class);
+        intent.putExtra("token","token123456789");
+        intent.putExtra("session","session123456789");
+
         startService(intent);
 
 
